@@ -22,7 +22,7 @@ export default class TodoListItem extends React.Component<Props, State> {
         }}>
         <Text style={{flex: 1}}>{this.props.todoItem.name}</Text>
         <Text style={{flex: 1}}>
-          {this.props.todoItem.isDone ? 'done' : 'unresolved'}
+          {this.props.todoItem.isDone ? 'kész' : 'folyamatban'}
         </Text>
         <Button
           title={!this.props.todoItem.isDone ? 'kész' : 'visszavonás'}
