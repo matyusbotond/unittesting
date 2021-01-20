@@ -39,10 +39,10 @@ export default class TodoList extends React.Component<Props, State> {
         style={{flex: 1}}
         keyExtractor={(item) => item.name}
         ListHeaderComponent={
-          <TodoListHeader itemCount={this.props.todoItems.length} />
-        }
-        ListFooterComponent={
-          <Button title="Új" onPress={this._newButtonPressed} />
+          <TodoListHeader
+            itemCount={this.props.todoItems.length}
+            newButtonPressed={this._newButtonPressed}
+          />
         }
       />
     );

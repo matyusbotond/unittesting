@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Button, Text, View} from 'react-native';
 
 interface Props {
   itemCount: number;
+  newButtonPressed: () => void;
 }
 
 interface State {}
@@ -19,7 +20,14 @@ export default class TodoListHeader extends React.Component<Props, State> {
           borderBottomWidth: 5,
         }}>
         <Text style={{flex: 1}}>A lista elemszáma</Text>
-        <Text style={{flex: 1}}>{this.props.itemCount}</Text>
+        <Text accessibilityLabel="itemCount" style={{flex: 1}}>
+          {this.props.itemCount}
+        </Text>
+        <Button
+          accessibilityLabel="newButton"
+          title="Új"
+          onPress={this.props.newButtonPressed}
+        />
       </View>
     );
   }
