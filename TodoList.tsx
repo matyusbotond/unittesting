@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Button, FlatList} from 'react-native';
+import {Alert, FlatList} from 'react-native';
 import {ITodoItem} from './ITodoItem';
 import TodoListItem from './TodoItem';
 import TodoListHeader from './TodoListHeader';
