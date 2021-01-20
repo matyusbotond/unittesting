@@ -1,4 +1,4 @@
-export interface ITodoItem{
-    name: string;
-    isDone: boolean;
+export interface ITodoItem {
+  name: string;
+  isDone: boolean;
 }

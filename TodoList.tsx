@@ -7,7 +7,7 @@ import TodoListHeader from './TodoListHeader';
 interface Props {
   todoItems: ITodoItem[];
   revertTodoItemFromDone: (item: ITodoItem) => void;
-  setTodoItemToDone: (item: ITodoItem)=> void;
+  setTodoItemToDone: (item: ITodoItem) => void;
   addNewItem: (name: string) => void;
 }
 
@@ -15,19 +15,21 @@ interface State {}
 
 export default class TodoList extends React.Component<Props, State> {
   private renderItem = ({item}: {item: ITodoItem}) => {
-    return <TodoListItem todoItem={item} onPress={this._itemPressed}/>;
+    return <TodoListItem todoItem={item} onPress={this._itemPressed} />;
   };
 
   private _itemPressed = (item: ITodoItem) => {
-      if(item.isDone){
-          this.props.revertTodoItemFromDone(item);
-      } else {
-        this.props.setTodoItemToDone(item);
-      }
+    if (item.isDone) {
+      this.props.revertTodoItemFromDone(item);
+    } else {
+      this.props.setTodoItemToDone(item);
+    }
   };
-    private _newButtonPressed= () => {
-        Alert.prompt('Adj meg egy nevet', undefined, (text: string) => this.props.addNewItem(text))
-    };
+  private _newButtonPressed = () => {
+    Alert.prompt('Adj meg egy nevet', undefined, (text: string) =>
+      this.props.addNewItem(text),
+    );
+  };
 
   public render() {
     return (
@@ -35,11 +37,13 @@ export default class TodoList extends React.Component<Props, State> {
         data={this.props.todoItems}
         renderItem={this.renderItem}
         style={{flex: 1}}
-        keyExtractor={item => item.name}
+        keyExtractor={(item) => item.name}
         ListHeaderComponent={
           <TodoListHeader itemCount={this.props.todoItems.length} />
         }
-        ListFooterComponent={<Button title='Új' onPress={this._newButtonPressed}/>}
+        ListFooterComponent={
+          <Button title="Új" onPress={this._newButtonPressed} />
+        }
       />
     );
   }
