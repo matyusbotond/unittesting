@@ -12,7 +12,7 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: test # will run `yarn install` command
-      - uses: IgnusG/jest-report-action@v{ current version }
+      - uses: IgnusG/jest-report-action@v2
         if: always() # Or use "continue-on-error: true" in previous test step
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
