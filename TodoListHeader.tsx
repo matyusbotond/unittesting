@@ -12,6 +12,7 @@ export default class TodoListHeader extends React.Component<Props, State> {
   public render() {
     return (
       <View
+        testID="todoListHeaderContainer"
         style={{
           flex: 1,
           flexDirection: 'row',
@@ -19,7 +20,9 @@ export default class TodoListHeader extends React.Component<Props, State> {
           marginBottom: 20,
           borderBottomWidth: 5,
         }}>
-        <Text style={{flex: 1}}>A lista elemszáma</Text>
+        <Text accessibilityLabel="itemCountLabel" style={{flex: 1}}>
+          A lista elemszáma
+        </Text>
         <Text accessibilityLabel="itemCount" style={{flex: 1}}>
           {this.props.itemCount}
         </Text>
