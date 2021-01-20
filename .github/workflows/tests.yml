@@ -15,3 +15,7 @@ jobs:
         with:
           # this is just an example, this could be any command that will trigger jest
           test-command: 'yarn test'
+      - uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
