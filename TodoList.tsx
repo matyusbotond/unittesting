@@ -14,8 +14,8 @@ interface Props {
 interface State {}
 
 export default class TodoList extends React.Component<Props, State> {
-  private renderItem = ({item}: {item: ITodoItem}) => {
-    return <TodoListItem todoItem={item} onPress={this._itemPressed} />;
+  private renderItem = ({item, index}: {item: ITodoItem, index: number}) => {
+    return <TodoListItem accessibilityLabel={`${index}-item`} todoItem={item} onPress={this._itemPressed} />;
   };
 
   private _itemPressed = (item: ITodoItem) => {
@@ -38,6 +38,7 @@ export default class TodoList extends React.Component<Props, State> {
   public render() {
     return (
       <FlatList
+        accessibilityLabel="todoItemsList"
         data={this.props.todoItems}
         renderItem={this.renderItem}
         style={{flex: 1}}
