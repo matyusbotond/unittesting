@@ -63,7 +63,7 @@ describe('TodoList', () => {
   });
 
   describe('must call', () => {
-    it('calls addNewItem function when newButton is pressed', () => {
+    it('calls addNewItem function when newButton is pressed on Android', () => {
       // Arrange 
 
       const rendered = render(
@@ -82,7 +82,7 @@ describe('TodoList', () => {
       expect(addNewItemMock).toBeCalledTimes(1);
     });
 
-    it('calls revertTodoItemFromDone when done todoItem is pressed', () => {
+    it('calls revertTodoItemFromDone when done todoItem\'s button is pressed', () => {
       // Arrange
       todoItems = [
         { name: 'test', isDone: true }, 
@@ -104,7 +104,7 @@ describe('TodoList', () => {
       expect(revertTodoItemFromDone).toBeCalledTimes(1);
     });
 
-    it('calls setTodoItemToDone when not done todoItem is pressed', () => {
+    it('calls setTodoItemToDone when NOT done todoItem\'s button is pressed', () => {
       // Arrange
       todoItems = [
         { name: 'test', isDone: false }, 
