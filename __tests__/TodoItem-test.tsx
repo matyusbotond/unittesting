@@ -22,7 +22,7 @@ describe('TodoItem', () => {
       expect(name.props.children).toBe(todoItem.name);
     });
 
-    it('item status', () => {
+    it('item status if item isDone', () => {
       // Arrange
       const todoItem: ITodoItem = {
         isDone: true,
@@ -37,7 +37,22 @@ describe('TodoItem', () => {
       expect(status.props.children).toBe('kész');
     });
 
-    it('button label', () => {
+    it('item status if item !isDone', () => {
+      // Arrange
+      const todoItem: ITodoItem = {
+        isDone: false,
+        name: 'test-name'
+      }
+
+      // Act
+      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+
+      // Assert
+      const status = rendered.getByA11yLabel('todoItemStatus');
+      expect(status.props.children).toBe('folyamatban');
+    })
+
+    it('button label if item isDone', () => {
       // Arrange
       const todoItem: ITodoItem = {
         isDone: true,
@@ -51,10 +66,25 @@ describe('TodoItem', () => {
       const button = rendered.getByA11yLabel('todoItemButton');
       expect(button.props.children[0].props.children.props.children).toBe('visszavonás');
     });
+
+    it('button label if item !isDone', () => {
+      // Arrange
+      const todoItem: ITodoItem = {
+        isDone: false,
+        name: 'test-name'
+      }
+
+      // Act
+      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+
+      // Assert
+      const button = rendered.getByA11yLabel('todoItemButton');
+      expect(button.props.children[0].props.children.props.children).toBe('kész');
+    });
   });
 
   describe('must call', () => {
-    it('onPress function if button is pressed', () => {
+    it('onPress function with todoItem if button is pressed', () => {
       // Arrange
       const todoItem: ITodoItem = {
         isDone: true,
@@ -68,7 +98,7 @@ describe('TodoItem', () => {
       fireEvent(button, 'onPress');
 
       // Assert
-      expect(onPressMock).toBeCalled();
+      expect(onPressMock).toBeCalledWith(todoItem);
     })
   })
 });
