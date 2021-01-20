@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, FlatList} from 'react-native';
+import {Alert, FlatList, Platform} from 'react-native';
 import {ITodoItem} from './ITodoItem';
 import TodoListItem from './TodoItem';
 import TodoListHeader from './TodoListHeader';
@@ -26,9 +26,13 @@ export default class TodoList extends React.Component<Props, State> {
     }
   };
   private _newButtonPressed = () => {
-    Alert.prompt('Adj meg egy nevet', undefined, (text: string) =>
-      this.props.addNewItem(text),
-    );
+    if (Platform.OS === 'android') {
+      this.props.addNewItem(`${new Date().toISOString()}-todoItem`);
+    } else {
+      Alert.prompt('Adj meg egy nevet', undefined, (text: string) =>
+        this.props.addNewItem(text),
+      );
+    }
   };
 
   public render() {
