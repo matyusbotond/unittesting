@@ -38,6 +38,7 @@ export default class TodoList extends React.Component<Props, State> {
   public render() {
     return (
       <FlatList
+        accessibilityLabel="todoItemsList"
         data={this.props.todoItems}
         renderItem={this.renderItem}
         style={{flex: 1}}
