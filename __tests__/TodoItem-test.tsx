@@ -3,6 +3,7 @@ import React from 'react';
 
 import {fireEvent, render} from '@testing-library/react-native';
 import TodoItem from '../TodoItem';
+import {Text} from 'react-native';
 
 describe('TodoItem', () => {
   describe('renders', () => {
@@ -62,9 +63,8 @@ describe('TodoItem', () => {
 
       // Assert
       const button = rendered.getByA11yLabel('todoItemChangeStatus');
-      expect(button.props.children[0].props.children.props.children).toBe(
-        'visszavonás',
-      );
+      const title = button.findByType(Text);
+      expect(title.props.children).toBe('visszavonás');
     });
     it("todoitem's status change button when it is not done", () => {
       // Arrange
@@ -78,9 +78,8 @@ describe('TodoItem', () => {
 
       // Assert
       const button = rendered.getByA11yLabel('todoItemChangeStatus');
-      expect(button.props.children[0].props.children.props.children).toBe(
-        'kész',
-      );
+      const title = button.findByType(Text);
+      expect(title.props.children).toBe('kész');
     });
     it('container view with flex and row direction', () => {
       // Arrange

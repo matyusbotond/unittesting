@@ -3,6 +3,7 @@ import React from 'react';
 
 import {fireEvent, render} from '@testing-library/react-native';
 import TodoListHeader from '../TodoListHeader';
+import {Text} from 'react-native';
 
 describe('TodoListHeader', () => {
   describe('renders', () => {
@@ -37,7 +38,8 @@ describe('TodoListHeader', () => {
 
       // Assert
       const button = rendered.getByA11yLabel('newButton');
-      expect(button.props.children[0].props.children.props.children).toBe('Új');
+      const title = button.findByType(Text);
+      expect(title.props.children).toBe('Új');
     });
     it('container view with flex and row direction', () => {
       // Arrange
