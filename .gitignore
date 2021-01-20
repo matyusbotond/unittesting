@@ -76,3 +76,4 @@ coverage/lcov-report/sorter.js
 coverage/lcov-report/TodoItem.tsx.html
 coverage/lcov-report/TodoList.tsx.html
 coverage/lcov-report/TodoListHeader.tsx.html
+junit.xml
