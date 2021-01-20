@@ -9,12 +9,9 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
-      - uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: borales/actions-yarn@v2.0.0
         with:
-          # this is just an example, this could be any command that will trigger jest
-          test-command: 'yarn test'
+          cmd: test # will run `yarn install` command
       - uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
