@@ -98,14 +98,12 @@ describe('TodoItem', () => {
     });
   });
   describe('must call', () => {
-    it('newButtonPressed function if newButton pressed', () => {
+    it('onPress function if todoItemChangeStatus button pressed', () => {
       // Arrange
       const onPressedMock = jest.fn();
+      const todoItem = {name: 'first', isDone: false};
       const rendered = render(
-        <TodoItem
-          todoItem={{name: 'first', isDone: false}}
-          onPress={onPressedMock}
-        />,
+        <TodoItem todoItem={todoItem} onPress={onPressedMock} />,
       );
 
       const button = rendered.getByA11yLabel('todoItemChangeStatus');
@@ -114,7 +112,7 @@ describe('TodoItem', () => {
       fireEvent(button, 'onPress');
 
       // Assert
-      expect(onPressedMock).toBeCalled();
+      expect(onPressedMock).toBeCalledWith(todoItem);
     });
   });
 });
