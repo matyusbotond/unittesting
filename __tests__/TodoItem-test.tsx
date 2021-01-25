@@ -4,6 +4,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import TodoListItem from '../TodoItem';
 import { ITodoItem } from '../ITodoItem';
+import { Text } from 'react-native';
 
 describe('TodoItem', () => {
   describe('render', () => {
@@ -80,6 +81,22 @@ describe('TodoItem', () => {
       // Assert
       const button = rendered.getByA11yLabel('todoItemButton');
       expect(button.props.children[0].props.children.props.children).toBe('kész');
+    });
+
+    it('renders a delete button with "Delete" label', () => {
+      // Arrange
+      const todoItem: ITodoItem = {
+        isDone: false,
+        name: 'test-name'
+      }
+
+      // Act
+      const rendered = render(<TodoListItem accessibilityLabel="test" todoItem={todoItem} onPress={jest.fn()} />)
+
+      // Assert
+      const deleteButton = rendered.getByA11yLabel('deleteButton');
+      expect(deleteButton.findByType(Text).props.children).toBe('Delete');
+      expect(deleteButton).toBeTruthy();
     });
   });
 

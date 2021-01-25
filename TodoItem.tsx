@@ -31,6 +31,11 @@ export default class TodoListItem extends React.Component<Props, State> {
           title={!this.props.todoItem.isDone ? 'kész' : 'visszavonás'}
           onPress={() => this.props.onPress(this.props.todoItem)}
         />
+        <Button 
+          accessibilityLabel="deleteButton"
+          title={'Delete'}
+          onPress={() => {}}
+        />
       </View>
     );
   }
