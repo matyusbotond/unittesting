@@ -5,41 +5,43 @@ import { fireEvent, render } from '@testing-library/react-native';
 import TodoList from '../TodoList';
 import { ITodoItem } from '../ITodoItem';
 import TodoListItem from '../TodoItem';
+import { create } from 'react-test-renderer';
 
 let todoItems: ITodoItem[] = [
   { name: 'test', isDone: true }
 ];
 
 let addNewItemMock = jest.fn();
-let revertTodoItemFromDone = jest.fn();
-let setTodoItemToDone = jest.fn();
+let revertTodoItemFromDoneMock = jest.fn();
+let setTodoItemToDoneMock = jest.fn();
+let deleteTodoItemMock = jest.fn();
 
 beforeEach(() => {
   todoItems = [
     { name: 'test', isDone: true },
-    { name: 'test2', isDone: false}
+    { name: 'test2', isDone: false }
   ];
-  
+
   addNewItemMock = jest.fn();
-  revertTodoItemFromDone = jest.fn();
-  setTodoItemToDone = jest.fn();  
-})
+  revertTodoItemFromDoneMock = jest.fn();
+  setTodoItemToDoneMock = jest.fn();
+});
 
 ReactNativeModule.Platform.OS = 'android';
+
+const createTodoItem = ({ todoItems = [
+  { name: 'test', isDone: true },
+  { name: 'test2', isDone: false }
+], addNewItem = jest.fn(), revertTodoItemFromDone = jest.fn(), setTodoItemToDone = jest.fn(), deleteTodoItem = jest.fn() }) => {
+  return <TodoList todoItems={todoItems} addNewItem={addNewItem} revertTodoItemFromDone={revertTodoItemFromDone} setTodoItemToDone={setTodoItemToDone} deleteTodoItem={deleteTodoItem} />
+}
 
 describe('TodoList', () => {
   describe('render', () => {
     it('list', () => {
       // Arrange      
       // Act
-      const rendered = render(
-        <TodoList
-          todoItems={todoItems}
-          addNewItem={addNewItemMock}
-          revertTodoItemFromDone={revertTodoItemFromDone}
-          setTodoItemToDone={setTodoItemToDone}
-        />
-      );
+      const rendered = render(createTodoItem({}));
       // Assert
       rendered.getByA11yLabel('todoItemsList');
     });
@@ -47,14 +49,7 @@ describe('TodoList', () => {
     it('renders todoItems', () => {
       // Arrange      
       // Act
-      const rendered = render(
-        <TodoList
-          todoItems={todoItems}
-          addNewItem={addNewItemMock}
-          revertTodoItemFromDone={revertTodoItemFromDone}
-          setTodoItemToDone={setTodoItemToDone}
-        />
-      );
+      const rendered = render(createTodoItem({}));
       // Assert
       const list = rendered.getByA11yLabel('todoItemsList');
       const items = list.findAllByType(TodoListItem);
@@ -66,14 +61,7 @@ describe('TodoList', () => {
     it('calls addNewItem function when newButton is pressed on Android', () => {
       // Arrange 
 
-      const rendered = render(
-        <TodoList
-          todoItems={todoItems}
-          addNewItem={addNewItemMock}
-          revertTodoItemFromDone={revertTodoItemFromDone}
-          setTodoItemToDone={setTodoItemToDone}
-        />
-      );
+      const rendered = render(createTodoItem({addNewItem: addNewItemMock}));
       const newButton = rendered.getByA11yLabel('newButton');
       // Act
       fireEvent(newButton, 'onPress');
@@ -85,45 +73,43 @@ describe('TodoList', () => {
     it('calls revertTodoItemFromDone when done todoItem\'s button is pressed', () => {
       // Arrange
       todoItems = [
-        { name: 'test', isDone: true }, 
+        { name: 'test', isDone: true },
       ]
-      const rendered = render(
-        <TodoList
-          todoItems={todoItems}
-          addNewItem={addNewItemMock}
-          revertTodoItemFromDone={revertTodoItemFromDone}
-          setTodoItemToDone={setTodoItemToDone}
-        />
-      );
+      const rendered = render(createTodoItem({todoItems: todoItems, revertTodoItemFromDone: revertTodoItemFromDoneMock}));
       const todoItemButton = rendered.getByA11yLabel('todoItemButton');
 
       // Act
       fireEvent(todoItemButton, 'onPress');
 
       // Arrange
-      expect(revertTodoItemFromDone).toBeCalledTimes(1);
+      expect(revertTodoItemFromDoneMock).toBeCalledTimes(1);
     });
 
     it('calls setTodoItemToDone when NOT done todoItem\'s button is pressed', () => {
       // Arrange
       todoItems = [
-        { name: 'test', isDone: false }, 
+        { name: 'test', isDone: false },
       ]
-      const rendered = render(
-        <TodoList
-          todoItems={todoItems}
-          addNewItem={addNewItemMock}
-          revertTodoItemFromDone={revertTodoItemFromDone}
-          setTodoItemToDone={setTodoItemToDone}
-        />
-      );
+      const rendered = render(createTodoItem({todoItems, setTodoItemToDone: setTodoItemToDoneMock}));
       const todoItemButton = rendered.getByA11yLabel('todoItemButton');
 
       // Act
       fireEvent(todoItemButton, 'onPress');
 
       // Arrange
-      expect(setTodoItemToDone).toBeCalledTimes(1);
+      expect(setTodoItemToDoneMock).toBeCalledTimes(1);
+    });
+
+    it('calls deleteTodoItem with TodoItem when delete button is pressed', () => {
+      //Arrange
+      const rendered = render(createTodoItem({todoItems, deleteTodoItem: deleteTodoItemMock}));
+      const deleteButton = rendered.getByTestId(`delete-test`);
+      // Act
+      fireEvent(deleteButton, 'onPress');
+
+      // Arrange
+      expect(deleteTodoItemMock).toBeCalledTimes(1);
+      expect(deleteTodoItemMock).toBeCalledWith(todoItems[0]);
     })
   })
 });

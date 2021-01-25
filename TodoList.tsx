@@ -9,13 +9,14 @@ interface Props {
   revertTodoItemFromDone: (item: ITodoItem) => void;
   setTodoItemToDone: (item: ITodoItem) => void;
   addNewItem: (name: string) => void;
+  deleteTodoItem: (item: ITodoItem) => void;
 }
 
 interface State {}
 
 export default class TodoList extends React.Component<Props, State> {
   private renderItem = ({item, index}: {item: ITodoItem, index: number}) => {
-    return <TodoListItem accessibilityLabel={`${index}-item`} todoItem={item} onToggleStatus={this._itemPressed} onDelete={() => {}} />;
+    return <TodoListItem accessibilityLabel={`${index}-item`} todoItem={item} onToggleStatus={this._itemPressed} onDelete={this.props.deleteTodoItem} />;
   };
 
   private _itemPressed = (item: ITodoItem) => {

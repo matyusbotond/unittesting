@@ -34,6 +34,7 @@ export default class TodoListItem extends React.Component<Props, State> {
         />
         <Button 
           accessibilityLabel="deleteButton"
+          testID={`delete-${this.props.todoItem.name}`}
           title={'Delete'}
           onPress={() => this.props.onDelete(this.props.todoItem)}
         />

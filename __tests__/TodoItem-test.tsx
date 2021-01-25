@@ -136,6 +136,6 @@ describe('TodoItem', () => {
       //Assert
       expect(onDeleteMock).toBeCalledTimes(1);
       expect(onDeleteMock).toBeCalledWith(todoItem);
-    })
+    });
   })
 });
