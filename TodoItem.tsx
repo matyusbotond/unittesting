@@ -4,8 +4,9 @@ import {ITodoItem} from './ITodoItem';
 
 interface Props {
   todoItem: ITodoItem;
-  onPress: (item: ITodoItem) => void;
+  onToggleStatus: (item: ITodoItem) => void;
   accessibilityLabel: string;
+  onDelete: (item: ITodoItem) => void;
 }
 
 interface State {}
@@ -29,12 +30,12 @@ export default class TodoListItem extends React.Component<Props, State> {
         <Button
           accessibilityLabel="todoItemButton"
           title={!this.props.todoItem.isDone ? 'kész' : 'visszavonás'}
-          onPress={() => this.props.onPress(this.props.todoItem)}
+          onPress={() => this.props.onToggleStatus(this.props.todoItem)}
         />
         <Button 
           accessibilityLabel="deleteButton"
           title={'Delete'}
-          onPress={() => {}}
+          onPress={() => this.props.onDelete(this.props.todoItem)}
         />
       </View>
     );

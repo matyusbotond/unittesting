@@ -6,6 +6,10 @@ import TodoListItem from '../TodoItem';
 import { ITodoItem } from '../ITodoItem';
 import { Text } from 'react-native';
 
+const createTodoListItem = ({ accessibilityLabel = 'test', onToggleStatus = jest.fn(), todoItem = { isDone: false, name: 'test-item' }, onDelete = jest.fn() }) => {
+  return <TodoListItem accessibilityLabel={accessibilityLabel} onToggleStatus={onToggleStatus} todoItem={todoItem} onDelete={onDelete} />
+}
+
 describe('TodoItem', () => {
   describe('render', () => {
     it('item name', () => {
@@ -16,7 +20,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+      const rendered = render(createTodoListItem({ todoItem }));
 
       // Assert
       const name = rendered.getByA11yLabel('todoItemName');
@@ -31,7 +35,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+      const rendered = render(createTodoListItem({ todoItem }));
 
       // Assert
       const status = rendered.getByA11yLabel('todoItemStatus');
@@ -46,7 +50,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+      const rendered = render(createTodoListItem({ todoItem }));
 
       // Assert
       const status = rendered.getByA11yLabel('todoItemStatus');
@@ -61,7 +65,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+      const rendered = render(createTodoListItem({ todoItem }));
 
       // Assert
       const button = rendered.getByA11yLabel('todoItemButton');
@@ -76,7 +80,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={jest.fn()} todoItem={todoItem} />);
+      const rendered = render(createTodoListItem({ todoItem }));
 
       // Assert
       const button = rendered.getByA11yLabel('todoItemButton');
@@ -91,7 +95,7 @@ describe('TodoItem', () => {
       }
 
       // Act
-      const rendered = render(<TodoListItem accessibilityLabel="test" todoItem={todoItem} onPress={jest.fn()} />)
+      const rendered = render(createTodoListItem({ todoItem }))
 
       // Assert
       const deleteButton = rendered.getByA11yLabel('deleteButton');
@@ -101,21 +105,37 @@ describe('TodoItem', () => {
   });
 
   describe('must call', () => {
-    it('onPress function with todoItem if button is pressed', () => {
+    it('onToggleStatus function is called with todoItem if button is pressed', () => {
       // Arrange
       const todoItem: ITodoItem = {
         isDone: true,
         name: 'test-name'
       }
-      const onPressMock = jest.fn();
-      const rendered = render(<TodoListItem accessibilityLabel="test" onPress={onPressMock} todoItem={todoItem} />);
+      const onToggleStatusMock = jest.fn();
+      const rendered = render(createTodoListItem({ onToggleStatus: onToggleStatusMock, todoItem }));
       const button = rendered.getByA11yLabel('todoItemButton');
 
       // Act
       fireEvent(button, 'onPress');
 
       // Assert
-      expect(onPressMock).toBeCalledWith(todoItem);
+      expect(onToggleStatusMock).toBeCalledWith(todoItem);
+    });
+
+    it('onDelete function called with TodoItem if delete button is pressed', () => {
+      // Arrange
+      const todoItem: ITodoItem = {
+        isDone: true,
+        name: 'test-name'
+      };
+      const onDeleteMock = jest.fn();
+      const rendered = render(createTodoListItem({ onDelete: onDeleteMock, todoItem }));
+      const deleteButton = rendered.getByA11yLabel('deleteButton');
+      // Act
+      fireEvent(deleteButton, 'onPress');
+      //Assert
+      expect(onDeleteMock).toBeCalledTimes(1);
+      expect(onDeleteMock).toBeCalledWith(todoItem);
     })
   })
 });
