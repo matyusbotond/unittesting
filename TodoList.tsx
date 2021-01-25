@@ -16,7 +16,7 @@ interface State {}
 
 export default class TodoList extends React.Component<Props, State> {
   private renderItem = ({item, index}: {item: ITodoItem, index: number}) => {
-    return <TodoListItem accessibilityLabel={`${index}-item`} todoItem={item} onToggleStatus={this._itemPressed} onDelete={this.props.deleteTodoItem} />;
+    return <TodoListItem accessibilityLabel={`item-${item.name}`} todoItem={item} onToggleStatus={this._itemPressed} onDelete={this.props.deleteTodoItem} />;
   };
 
   private _itemPressed = (item: ITodoItem) => {
