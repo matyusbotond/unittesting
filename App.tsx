@@ -27,19 +27,20 @@ export default class App extends React.Component<Props, State> {
           <TodoList
             todoItems={Object.values(this.state.todoItems)}
             setTodoItemToDone={(item) =>
-              this.createOrUpdateTodoItem(item.name, true)
+              this._createOrUpdateTodoItem(item.name, true)
             }
             revertTodoItemFromDone={(item) =>
-              this.createOrUpdateTodoItem(item.name, false)
+              this._createOrUpdateTodoItem(item.name, false)
             }
-            addNewItem={(name) => this.createOrUpdateTodoItem(name, false)}
+            addNewItem={(name) => this._createOrUpdateTodoItem(name, false)}
+            deleteTodoItem={(item) => this._deleteTodoItem(item)}
           />
         </SafeAreaView>
       </>
     );
   }
 
-  public createOrUpdateTodoItem(name: string, isDone: boolean) {
+  private _createOrUpdateTodoItem(name: string, isDone: boolean) {
     const todoItems = {...this.state.todoItems};
     const todoItemKey = name.toLocaleLowerCase();
     const todoItem = todoItems[todoItemKey];
@@ -52,6 +53,12 @@ export default class App extends React.Component<Props, State> {
       todoItems[todoItemKey] = {name: name, isDone: isDone};
     }
 
+    this.setState({todoItems});
+  }
+
+  private _deleteTodoItem(item: ITodoItem) {
+    const todoItems = {...this.state.todoItems};
+    delete todoItems[item.name.toLocaleLowerCase()];
     this.setState({todoItems});
   }
 }
