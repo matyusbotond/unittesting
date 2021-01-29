@@ -1,0 +1,8 @@
+{
+  "platformName": "iOS",
+  "platformVersion": "14.3",
+  "app": "<App path>",
+  "deviceName": "iPhone 11",
+  "autoGrantPermissions": true,
+  "autoAcceptAlerts": false
+}

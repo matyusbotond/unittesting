@@ -1,0 +1,7 @@
+{
+  "platformName": "android",
+  "deviceName": "emulator-5554",
+  "app": "path/release/app-envTest-release.apk",
+  "automationName": "UiAutomator2",
+  "appWaitForLaunch": false
+}

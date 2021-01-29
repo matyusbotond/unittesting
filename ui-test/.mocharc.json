@@ -1,0 +1,14 @@
+{
+  "extension": ["ts"],
+  "spec": "./tests/*.ts",
+  "require": "ts-node/register",
+  "timeout": "180000",
+  "reporterOptions": {
+    "mocha-junit-reporter": {
+      "options": {
+        "mochaFile": "./test.xml"
+      },
+      "attachments": true
+    }
+  }
+}

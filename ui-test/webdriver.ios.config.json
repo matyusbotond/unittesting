@@ -1,0 +1,8 @@
+{
+  "platformName": "iOS",
+  "platformVersion": "14.4",
+  "app": "/Users/botondmatyus/Library/Developer/Xcode/DerivedData/MyApp-eimulkgnqlnfstcjuddmqnewbttw/Build/Products/Debug-iphonesimulator/MyApp.app",
+  "deviceName": "iPhone 11",
+  "autoGrantPermissions": true,
+  "autoAcceptAlerts": false
+}
