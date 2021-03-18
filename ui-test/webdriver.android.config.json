@@ -1,0 +1,7 @@
+{
+  "platformName": "android",
+  "deviceName": "emulator-5554",
+  "app": "/Users/botondmatyus/Repos/MXC/nemethmate/untitesting/MyApp/android/app/build/outputs/apk/debug/app-debug.apk",
+  "automationName": "UiAutomator2",
+  "appWaitForLaunch": false
+}

@@ -1,0 +1,16 @@
+POST https://fcm.googleapis.com/fcm/send
+Authorization: key=AAAAQ42K634:APA91bFjLkvM_nrhg98LN8mpii2-4n5fFQIR7ToqokAILCm7RRw50pUFaJ2AUsJFhfcHlwx1ZB2l98Zkbqtaq3ImHEQCXHh3vYtFvyfU3L2bbk6oPhKqUUcunUi9NYBxXY7YmQOpjIPb
+Content-Type: application/json
+
+{
+  "to": "e5JARUWlQAqpRr_kddDb7W:APA91bGv5PNLQiL0mTtwn90CCVmtK2DS9ZG5pzm2tBK20iSEpH419_ljdD55TBSJ2nlMArTzIh6jmo1D8fqjM7hB1tjqoPF34ag8iSPlwlcpNumDdq6szqZnwIZcieK3oChAuvkUxyu8",
+  "notification": {
+        "title":"FCM Message",
+        "body":"This is an FCM notification message!"
+  },
+  "content_available": true,
+  "apns-priority": 5,
+  "data": {
+    "asd": true
+  }
+}

@@ -1,8 +1,10 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {Alert, SafeAreaView} from 'react-native';
 
 import {ITodoItem} from './ITodoItem';
+import {requestUserPermission} from './notifications/permissions';
 import TodoList from './TodoList';
+import messaging from '@react-native-firebase/messaging';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -19,6 +21,23 @@ export default class App extends React.Component<Props, State> {
       second: {name: 'Second', isDone: false},
     },
   };
+
+  unsubscribe: (() => void) | undefined;
+
+  componentDidMount() {
+    this.getTokenAsync();
+    requestUserPermission();
+
+    this.unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
 
   public render() {
     return (
@@ -53,5 +72,15 @@ export default class App extends React.Component<Props, State> {
     }
 
     this.setState({todoItems});
+  }
+
+  public async getTokenAsync() {
+    try {
+      const token = await messaging().getToken();
+      console.log(token);
+    } catch (error) {
+      console.warn('Can not get PushNotification token');
+      return '';
+    }
   }
 }
